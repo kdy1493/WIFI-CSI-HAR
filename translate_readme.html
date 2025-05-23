@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiFi CSI Processing - README</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 20px;
+        }
+        
+        .translate-btn {
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,123,255,0.2);
+        }
+        
+        .translate-btn:hover {
+            background: linear-gradient(45deg, #0056b3, #004085);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,123,255,0.3);
+        }
+        
+        .translate-btn:active {
+            transform: translateY(0);
+        }
+        
+        .content {
+            transition: opacity 0.3s ease;
+        }
+        
+        .content.translating {
+            opacity: 0.6;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        
+        h3 {
+            color: #2980b9;
+            margin-top: 30px;
+        }
+        
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #e9ecef;
+            font-family: 'Monaco', 'Menlo', monospace;
+        }
+        
+        pre {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 16px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+        
+        pre code {
+            background: none;
+            border: none;
+            padding: 0;
+        }
+        
+        ul, ol {
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .project-tree {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 20px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 14px;
+            margin: 16px 0;
+            white-space: pre;
+        }
+        
+        .loading {
+            display: none;
+            color: #6c757d;
+            font-style: italic;
+        }
+        
+        .language-indicator {
+            background: #e9ecef;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #495057;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1 style="margin: 0;">WiFi CSI Processing</h1>
+                <span class="language-indicator" id="langIndicator">English</span>
+            </div>
+            <button class="translate-btn" id="translateBtn" onclick="translateContent()">
+                한국어로 번역
+            </button>
+        </div>
+        
+        <div class="loading" id="loading">번역 중...</div>
+        
+        <div class="content" id="content">
+            <p>A Python project for collecting, processing, and analyzing WiFi CSI (Channel State Information) data.</p>
+
+            <h2>Project Overview</h2>
+            <p>This project provides a complete pipeline for WiFi CSI data:</p>
+            <ul>
+                <li>Convert raw CSI data to CSV format</li>
+                <li>Data preprocessing and filtering</li>
+                <li>Statistical analysis and visualization</li>
+                <li>Apply dimensionality reduction techniques like PCA</li>
+            </ul>
+
+            <h2>Key Features</h2>
+
+            <h3>Data Processing</h3>
+            <ul>
+                <li><strong>Raw CSI to CSV</strong>: Convert raw CSI data to CSV format</li>
+                <li><strong>Preprocessing</strong>: Noise removal and signal filtering</li>
+                <li><strong>Data Merging</strong>: Combine multiple CSV files into one</li>
+            </ul>
+
+            <h3>Analysis and Visualization</h3>
+            <ul>
+                <li><strong>CSI Data Visualization</strong>: Visualize raw and processed CSI data</li>
+                <li><strong>Signal Analysis</strong>: Frequency domain analysis</li>
+                <li><strong>PCA Analysis</strong>: Pattern analysis through dimensionality reduction</li>
+                <li><strong>Subcarrier Analysis</strong>: Individual subcarrier characteristic analysis</li>
+            </ul>
+
+            <h2>Installation</h2>
+
+            <h3>Requirements</h3>
+            <ul>
+                <li>Python 3.11 or higher</li>
+                <li>uv (Python package manager) or pip</li>
+            </ul>
+
+            <h3>Setup</h3>
+            <ol>
+                <li>Clone the repository:
+                    <pre><code>git clone &lt;repository-url&gt;
+cd WIFI-CSI-PROCESSING</code></pre>
+                </li>
+                <li>Create virtual environment and install dependencies:
+                    <p><strong>Using uv (recommended):</strong></p>
+                    <pre><code>uv sync</code></pre>
+                    <p><strong>Using pip:</strong></p>
+                    <pre><code>python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+pip install -e .</code></pre>
+                </li>
+            </ol>
+
+            <h2>Project Structure</h2>
+            <div class="project-tree">├── src/                          # Main source code
+│   ├── CSI_To_CSV.py            # CSI → CSV converter
+│   ├── Raw_CSI_To_CSV.py        # Raw CSI → CSV converter
+│   ├── CSV_To_Plot.py           # CSV data visualization
+│   ├── Processed_Raw_CSI_Visualizer.py  # Processed CSI visualization
+│   ├── preprocessing.py          # Data preprocessing module
+│   ├── merge_csv.py             # CSV file merger
+│   └── utils.py                 # Utility functions
+├── nbs/                         # Jupyter notebooks
+│   ├── 01_plotting_raw_csi.ipynb     # Raw CSI plotting
+│   ├── 02_processing_csi_from_Atif.ipynb  # CSI processing analysis
+│   ├── 03_sc_analysis.ipynb          # Subcarrier analysis
+│   ├── 04_signal_filtering.ipynb     # Signal filtering
+│   └── 05_PCA.ipynb                  # PCA analysis
+├── data/                        # Data directory
+│   ├── raw/                     # Raw data
+│   ├── processed/               # Processed data
+│   └── calibration/             # Calibration data
+└── scripts/                     # Execution scripts</div>
+
+            <h2>Usage</h2>
+
+            <h3>Basic Data Processing</h3>
+            <ol>
+                <li><strong>Convert raw CSI data to CSV:</strong>
+                    <pre><code>python src/Raw_CSI_To_CSV.py</code></pre>
+                </li>
+                <li><strong>Data preprocessing:</strong>
+                    <pre><code>python src/preprocessing.py</code></pre>
+                </li>
+                <li><strong>Visualization:</strong>
+                    <pre><code>python src/CSV_To_Plot.py</code></pre>
+                </li>
+            </ol>
+
+            <h3>Advanced Analysis</h3>
+            <p>Use Jupyter notebooks for detailed analysis:</p>
+            <pre><code>jupyter notebook nbs/</code></pre>
+            <ul>
+                <li><code>01_plotting_raw_csi.ipynb</code>: Raw CSI data exploration</li>
+                <li><code>04_signal_filtering.ipynb</code>: Signal filtering techniques</li>
+                <li><code>05_PCA.ipynb</code>: Principal component analysis</li>
+            </ul>
+
+            <h2>Dependencies</h2>
+            <p>Key libraries:</p>
+            <ul>
+                <li><code>numpy</code>, <code>pandas</code>: Data processing</li>
+                <li><code>matplotlib</code>: Visualization</li>
+                <li><code>scikit-learn</code>: Machine learning and PCA</li>
+                <li><code>scipy</code>: Scientific computing</li>
+                <li><code>paho-mqtt</code>: MQTT communication (real-time data collection)</li>
+            </ul>
+
+            <h2>Contributing</h2>
+            <ol>
+                <li>Fork the project</li>
+                <li>Create a feature branch (<code>git checkout -b feature/AmazingFeature</code>)</li>
+                <li>Commit your changes (<code>git commit -m 'Add some AmazingFeature'</code>)</li>
+                <li>Push to the branch (<code>git push origin feature/AmazingFeature</code>)</li>
+                <li>Create a Pull Request</li>
+            </ol>
+
+            <h2>License</h2>
+            <p>This project is distributed under the MIT License. See <code>LICENSE</code> file for more information.</p>
+
+            <h2>Contact</h2>
+            <p>If you have any questions or suggestions about the project, please create an issue.</p>
+        </div>
+    </div>
+
+    <script>
+        let isKorean = false;
+        
+        const englishContent = {
+            title: "WiFi CSI Processing",
+            description: "A Python project for collecting, processing, and analyzing WiFi CSI (Channel State Information) data.",
+            sections: {
+                projectOverview: {
+                    title: "Project Overview",
+                    content: `This project provides a complete pipeline for WiFi CSI data:
+                    <ul>
+                        <li>Convert raw CSI data to CSV format</li>
+                        <li>Data preprocessing and filtering</li>
+                        <li>Statistical analysis and visualization</li>
+                        <li>Apply dimensionality reduction techniques like PCA</li>
+                    </ul>`
+                },
+                keyFeatures: {
+                    title: "Key Features",
+                    dataProcessing: {
+                        title: "Data Processing",
+                        content: `<ul>
+                            <li><strong>Raw CSI to CSV</strong>: Convert raw CSI data to CSV format</li>
+                            <li><strong>Preprocessing</strong>: Noise removal and signal filtering</li>
+                            <li><strong>Data Merging</strong>: Combine multiple CSV files into one</li>
+                        </ul>`
+                    },
+                    analysisViz: {
+                        title: "Analysis and Visualization",
+                        content: `<ul>
+                            <li><strong>CSI Data Visualization</strong>: Visualize raw and processed CSI data</li>
+                            <li><strong>Signal Analysis</strong>: Frequency domain analysis</li>
+                            <li><strong>PCA Analysis</strong>: Pattern analysis through dimensionality reduction</li>
+                            <li><strong>Subcarrier Analysis</strong>: Individual subcarrier characteristic analysis</li>
+                        </ul>`
+                    }
+                }
+            }
+        };
+        
+        const koreanContent = {
+            title: "WiFi CSI Processing",
+            description: "WiFi CSI (Channel State Information) 데이터를 수집, 처리 및 분석하기 위한 Python 프로젝트입니다.",
+            sections: {
+                projectOverview: {
+                    title: "프로젝트 개요",
+                    content: `이 프로젝트는 WiFi CSI 데이터의 전체 파이프라인을 제공합니다:
+                    <ul>
+                        <li>원시 CSI 데이터를 CSV 형태로 변환</li>
+                        <li>데이터 전처리 및 필터링</li>
+                        <li>통계적 분석 및 시각화</li>
+                        <li>PCA 등의 차원 축소 기법 적용</li>
+                    </ul>`
+                },
+                keyFeatures: {
+                    title: "주요 기능",
+                    dataProcessing: {
+                        title: "데이터 처리",
+                        content: `<ul>
+                            <li><strong>Raw CSI to CSV</strong>: 원시 CSI 데이터를 CSV 형태로 변환</li>
+                            <li><strong>전처리</strong>: 노이즈 제거, 신호 필터링</li>
+                            <li><strong>데이터 병합</strong>: 여러 CSV 파일을 하나로 결합</li>
+                        </ul>`
+                    },
+                    analysisViz: {
+                        title: "분석 및 시각화",
+                        content: `<ul>
+                            <li><strong>CSI 데이터 시각화</strong>: 원시 및 처리된 CSI 데이터의 시각화</li>
+                            <li><strong>신호 분석</strong>: 주파수 도메인 분석</li>
+                            <li><strong>PCA 분석</strong>: 차원 축소를 통한 패턴 분석</li>
+                            <li><strong>Subcarrier 분석</strong>: 개별 부반송파 특성 분석</li>
+                        </ul>`
+                    }
+                }
+            }
+        };
+        
+        function translateContent() {
+            const content = document.getElementById('content');
+            const btn = document.getElementById('translateBtn');
+            const loading = document.getElementById('loading');
+            const langIndicator = document.getElementById('langIndicator');
+            
+            // Show loading
+            content.classList.add('translating');
+            loading.style.display = 'block';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                if (!isKorean) {
+                    // Translate to Korean
+                    document.querySelector('h1').textContent = koreanContent.title;
+                    document.querySelector('p').textContent = koreanContent.description;
+                    
+                    // Update section titles and some content
+                    const headers = document.querySelectorAll('h2');
+                    headers[0].textContent = koreanContent.sections.projectOverview.title;
+                    headers[1].textContent = koreanContent.sections.keyFeatures.title;
+                    headers[2].textContent = "설치 방법";
+                    headers[3].textContent = "프로젝트 구조";
+                    headers[4].textContent = "사용 방법";
+                    headers[5].textContent = "의존성";
+                    headers[6].textContent = "기여";
+                    headers[7].textContent = "라이선스";
+                    headers[8].textContent = "연락처";
+                    
+                    // Update subsection titles
+                    const h3s = document.querySelectorAll('h3');
+                    h3s[0].textContent = "요구사항";
+                    h3s[1].textContent = "설치";
+                    h3s[2].textContent = koreanContent.sections.keyFeatures.dataProcessing.title;
+                    h3s[3].textContent = koreanContent.sections.keyFeatures.analysisViz.title;
+                    h3s[4].textContent = "기본 데이터 처리";
+                    h3s[5].textContent = "고급 분석";
+                    
+                    // Update some specific content
+                    const firstUl = document.querySelector('ul');
+                    firstUl.innerHTML = `
+                        <li>원시 CSI 데이터를 CSV 형태로 변환</li>
+                        <li>데이터 전처리 및 필터링</li>
+                        <li>통계적 분석 및 시각화</li>
+                        <li>PCA 등의 차원 축소 기법 적용</li>
+                    `;
+                    
+                    btn.textContent = 'Translate to English';
+                    langIndicator.textContent = '한국어';
+                    isKorean = true;
+                } else {
+                    // Translate back to English
+                    location.reload(); // Simple way to restore original content
+                }
+                
+                // Hide loading
+                content.classList.remove('translating');
+                loading.style.display = 'none';
+                btn.disabled = false;
+            }, 1000);
+        }
+    </script>
+</body>
+</html> 
