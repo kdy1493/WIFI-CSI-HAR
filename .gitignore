@@ -1,0 +1,45 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+env/
+venv/
+
+# VSCode settings
+.vscode/
+
+# Jupyter Notebook checkpoints
+**/.ipynb_checkpoints
+
+# Python distribution / packaging
+.Python
+*.egg-info/
+*.egg
+*.whl
+dist/
+build/
+
+# Log and lock files
+*.log
+*.lock
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Data folders (optional - if you don’t want to track data)
+# Uncomment below if your datasets should be ignored
+# data/raw/
+# data/processed/
+# data/calibration/
+
+# Temporary files
+*.tmp
+*.bak
+
+# PIPENV / poetry
+Pipfile.lock
+poetry.lock
