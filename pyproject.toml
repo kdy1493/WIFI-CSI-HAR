@@ -1,0 +1,19 @@
+[project]
+name = "wifi-csi-processing"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "autorootcwd>=1.0.1",
+    "cursor-notebook-mcp>=0.3.0",
+    "ipykernel>=6.29.5",
+    "matplotlib>=3.10.3",
+    "nbimporter>=0.3.4",
+    "numpy>=2.2.6",
+    "paho-mqtt>=2.1.0",
+    "pandas>=2.2.3",
+    "requests>=2.32.3",
+    "scikit-learn>=1.6.1",
+    "scipy>=1.15.3",
+]
